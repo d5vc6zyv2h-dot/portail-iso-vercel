@@ -1,12 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import { PrismaTiDBCloud } from "@tidbcloud/prisma-adapter";
 
-const adapter = new PrismaMariaDb({
-  host: "localhost",
-  port: 3306,
-  user: "portail",
-  password: "",
-  database: "portail_iso27001",
+const adapter = new PrismaTiDBCloud({
+  url: process.env.DATABASE_URL!,
 });
 
 const globalForPrisma = globalThis as unknown as {
@@ -20,4 +16,3 @@ export const prisma =
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
 }
-
