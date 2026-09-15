@@ -1,26 +1,419 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #f3f4f6;
+  --foreground: #1f2937;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  margin: 0;
+}
+
+/* =====================================================
+   RAPPORT ISO 27001
+   ===================================================== */
+
+.rapport-impression {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px;
+  background: #ffffff;
+  color: #111827;
   font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+.rapport-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: 28px;
+  border-bottom: 3px solid #1f2937;
+}
+
+.rapport-marque {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #4b5563;
+}
+
+.rapport-header h1 {
+  margin: 8px 0 0;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #111827;
+}
+
+.rapport-sous-titre {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.rapport-reference {
+  min-width: 180px;
+  text-align: right;
+}
+
+.rapport-reference div {
+  margin-bottom: 12px;
+}
+
+.rapport-reference span {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 11px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rapport-reference strong {
+  font-size: 15px;
+  color: #111827;
+}
+
+.rapport-section {
+  margin-top: 36px;
+}
+
+.section-titre {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.section-numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 26px;
+  flex: 0 0 32px;
+  background: #1f2937;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.section-titre h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #d1d5db;
+}
+
+.info-item {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.info-item:nth-child(odd) {
+  border-right: 1px solid #e5e7eb;
+}
+
+.info-item:nth-child(3),
+.info-item:nth-child(4) {
+  border-bottom: none;
+}
+
+.info-item span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.info-item strong {
+  font-size: 14px;
+  color: #111827;
+}
+
+.synthese-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.synthese-card {
+  padding: 17px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+}
+
+.synthese-card span {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.synthese-card strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 21px;
+  color: #111827;
+}
+
+.constat {
+  margin-top: 18px;
+  padding: 18px 20px;
+  border-left: 4px solid #374151;
+  background: #f9fafb;
+}
+
+.constat h3 {
+  margin: 0 0 7px;
+  font-size: 14px;
+  color: #111827;
+}
+
+.constat p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #374151;
+}
+
+.rapport-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.rapport-table th {
+  padding: 9px 8px;
+  border: 1px solid #9ca3af;
+  background: #f3f4f6;
+  color: #111827;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.rapport-table td {
+  padding: 9px 8px;
+  border: 1px solid #d1d5db;
+  vertical-align: top;
+  color: #374151;
+}
+
+.rapport-table td strong {
+  display: block;
+  color: #111827;
+  font-weight: 700;
+}
+
+.rapport-table td small {
+  display: block;
+  margin-top: 4px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.rapport-table .centre {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.rapport-table .criticite {
+  font-weight: 700;
+  color: #111827;
+}
+
+.message-vide {
+  padding: 18px;
+  border: 1px dashed #9ca3af;
+  color: #6b7280;
+  font-size: 13px;
+  text-align: center;
+}
+
+.conclusion {
+  padding: 20px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+}
+
+.conclusion p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.rapport-tracabilite {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 45px;
+  padding-top: 15px;
+  border-top: 1px solid #d1d5db;
+  font-size: 10px;
+  color: #6b7280;
+}
+
+.rapport-tracabilite div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rapport-tracabilite strong {
+  color: #374151;
+}
+
+/* =====================================================
+   IMPRESSION PDF
+   ===================================================== */
+
+.signature-rapport {
+  min-width: 300px;
+  max-width: 420px;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+}
+
+.signature-rapport strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.signature-rapport code {
+  display: block;
+  padding: 9px;
+  overflow-wrap: anywhere;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #111827;
+  font-family: monospace;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.signature-rapport span {
+  display: block;
+  margin-top: 8px;
+  font-size: 9px;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  body {
+    color: #111827 !important;
+  }
+
+  nav,
+  aside,
+  header:not(.rapport-header),
+  footer {
+    display: none !important;
+  }
+
+  .rapport-impression {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  .rapport-section {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .section-titre {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .rapport-table {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .rapport-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .rapport-table thead {
+    display: table-header-group;
+  }
+
+  .rapport-header {
+    display: flex !important;
+    border-bottom: 3px solid #1f2937 !important;
+  }
+
+  .rapport-header h1,
+  .rapport-header p,
+  .rapport-header span,
+  .rapport-header strong,
+  .section-titre h2,
+  .info-item strong,
+  .synthese-card strong,
+  .constat h3,
+  .rapport-table td,
+  .rapport-table th,
+  .conclusion p {
+    color: #111827 !important;
+  }
+
+  .section-numero {
+    display: inline-flex !important;
+    background: #1f2937 !important;
+    color: #ffffff !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .synthese-card,
+  .constat,
+  .conclusion,
+  .rapport-table th {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
 }

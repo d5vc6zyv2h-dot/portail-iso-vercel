@@ -31,6 +31,9 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
+
+# Données locales sensibles
+donnees_propres.sql
 .env*
 
 # vercel
@@ -39,3 +42,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# Fichiers des outils de développement
+.agents/
+.claude/
+.cursor/
+.devin/

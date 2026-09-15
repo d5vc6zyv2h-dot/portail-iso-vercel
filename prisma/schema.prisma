@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  name        String
+  email       String       @unique
+  password    String
+  role        String       @default("Utilisateur")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  evaluations Evaluation[]
+  risques     Risque[]
+  rapports    Rapport[]
+  auditLogs   AuditLog[]
+}
+
+model Question {
+  id                 Int          @id @default(autoincrement())
+  texte              String       @db.Text
+  categorie          String
+  type               String       @default("choix")
+  active             Boolean      @default(true)
+  questionParentId   Int?
+
+  questionParent     Question?    @relation("QuestionDependante", fields: [questionParentId], references: [id])
+  questionsSuivantes Question[]    @relation("QuestionDependante")
+
+  reponses           Reponse[]
+  evaluations        EvaluationQuestion[]
+  risques            Risque[]
+}
+
+model Evaluation {
+  id          Int       @id @default(autoincrement())
+  userId      Int?
+  statut      String    @default("en_cours")
+  supprimee   Boolean   @default(false)
+  supprimeeAt DateTime?
+  score       Float?
+  niveau      String?
+  conclusion  String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  reponses    Reponse[]
+  risques     Risque[]
+  rapport     Rapport?
+  questions   EvaluationQuestion[]
+}
+
+model Reponse {
+  id           Int        @id @default(autoincrement())
+  evaluationId Int
+  questionId   Int
+  choix        String?
+  details      String?    @db.Text
+  score        Float?
+  createdAt    DateTime   @default(now())
+
+  evaluation   Evaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+  question     Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([evaluationId, questionId])
+}
+
+model Risque {
+  id            Int          @id @default(autoincrement())
+  evaluationId  Int
+  questionId    Int?
+  userId        Int?
+  titre         String
+  description   String?      @db.Text
+  vulnerabilite String?      @db.Text
+  consequence   String?      @db.Text
+  probabilite   Int?
+  impact        Int?
+  criticite     Int?
+  niveau        String?
+  statut        String       @default("Identifié")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  evaluation    Evaluation   @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+  user          User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  question      Question?    @relation(fields: [questionId], references: [id], onDelete: SetNull)
+  mesures       Mesure[]
+}
+
+model Mesure {
+  id           Int        @id @default(autoincrement())
+  risqueId     Int
+  type         String
+  description  String     @db.Text
+  responsable  String?
+  priorite     String?
+  echeance     DateTime?
+  statut       String     @default("À mettre en œuvre")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  risque       Risque     @relation(fields: [risqueId], references: [id], onDelete: Cascade)
+}
+
+model Rapport {
+  id           Int          @id @default(autoincrement())
+  evaluationId Int          @unique
+  userId       Int?
+  titre        String
+  conclusion   String       @db.Text
+  supprimee    Boolean      @default(false)
+  supprimeeAt  DateTime?
+  createdAt    DateTime     @default(now())
+
+  evaluation   Evaluation   @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+  user         User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model EvaluationQuestion {
+  id           Int        @id @default(autoincrement())
+  evaluationId Int
+  questionId   Int
+  ordre        Int
+
+  evaluation   Evaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+  question     Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([evaluationId, questionId])
+}
+
+model AuditLog {
+  id          Int       @id @default(autoincrement())
+  userId      Int?
+  action      String
+  description String    @db.Text
+  details     String?   @db.Text
+  signature   String    @db.VarChar(255)
+  createdAt   DateTime  @default(now())
+
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([createdAt])
+}
