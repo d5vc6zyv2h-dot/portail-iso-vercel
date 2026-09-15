@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import PlanTraitementForm from "@/components/PlanTraitementForm";
@@ -75,16 +74,12 @@ export default async function TraitementsPage({
     );
   }
 
-  let evaluation;
-
-  if (
-    Number.isInteger(evaluationId) &&
-    evaluationId > 0
-  ) {
-    evaluation = evaluations.find(
-      (item) => item.id === evaluationId
-    );
-  }
+  let evaluation = evaluations.find(
+    (item) =>
+      Number.isInteger(evaluationId) &&
+      evaluationId > 0 &&
+      item.id === evaluationId
+  );
 
   if (!evaluation) {
     evaluation = evaluations[0];
@@ -125,10 +120,7 @@ export default async function TraitementsPage({
       return aTraite ? 1 : -1;
     }
 
-    return (
-      (b.criticite ?? 0) -
-      (a.criticite ?? 0)
-    );
+    return (b.criticite ?? 0) - (a.criticite ?? 0);
   });
 
   const risquesNonTraites = risques.filter(
@@ -183,7 +175,7 @@ export default async function TraitementsPage({
             <SelectEvaluation
               evaluations={evaluations}
               selectedId={evaluation.id}
-	      destination="traitements"
+              destination="traitements"
             />
           </div>
         </div>
@@ -200,7 +192,8 @@ export default async function TraitementsPage({
 
         {peutVoirToutes && (
           <p className="mt-1 text-sm text-gray-500">
-            Utilisateur : {evaluation.user.name}
+            Utilisateur :{" "}
+            {evaluation.user?.name ?? "Utilisateur supprimé"}
           </p>
         )}
 
@@ -290,4 +283,3 @@ export default async function TraitementsPage({
     </div>
   );
 }
-

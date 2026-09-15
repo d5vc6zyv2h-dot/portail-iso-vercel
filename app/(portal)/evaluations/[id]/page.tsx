@@ -105,20 +105,19 @@ export default async function EvaluationPage({
           <p className="mt-3 text-sm text-gray-600">
             Nom :{" "}
             <span className="font-medium text-gray-800">
-              {evaluation.user.name}
+              {evaluation.user?.name ?? "Utilisateur supprimé"}
             </span>
           </p>
 
           <p className="mt-2 text-sm text-gray-600">
             Email :{" "}
             <span className="font-medium text-gray-800">
-              {evaluation.user.email}
+              {evaluation.user?.email ?? "Email indisponible"}
             </span>
           </p>
         </div>
       )}
 
-      {/* Résumé */}
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded-xl border bg-white p-5 shadow-sm">
           <p className="text-sm text-gray-500">
@@ -153,7 +152,6 @@ export default async function EvaluationPage({
         </div>
       </div>
 
-      {/* Informations */}
       <div className="mt-6 rounded-xl border bg-white p-5 shadow-sm sm:p-6">
         <h3 className="text-lg font-semibold text-gray-800">
           Informations
@@ -172,7 +170,6 @@ export default async function EvaluationPage({
         </p>
       </div>
 
-      {/* Réponses */}
       <div className="mt-6 rounded-xl border bg-white shadow-sm">
         <div className="border-b p-5 sm:p-6">
           <h3 className="text-lg font-semibold text-gray-800">
@@ -211,7 +208,6 @@ export default async function EvaluationPage({
         </div>
       </div>
 
-      {/* Risques */}
       <div className="mt-6 rounded-xl border bg-white shadow-sm">
         <div className="border-b p-5 sm:p-6">
           <h3 className="text-lg font-semibold text-gray-800">

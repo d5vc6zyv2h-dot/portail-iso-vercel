@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
@@ -78,7 +79,8 @@ export default async function RapportsSupprimesPage() {
                       </h4>
 
                       <p className="mt-1 text-sm text-gray-500">
-                        Utilisateur : {rapport.user.name}
+                        Utilisateur :{" "}
+                        {rapport.user?.name ?? "Utilisateur supprimé"}
                       </p>
 
                       <p className="mt-1 text-sm text-gray-500">
@@ -121,7 +123,7 @@ export default async function RapportsSupprimesPage() {
                     evaluationId={rapport.evaluationId}
                     supprimee={true}
                     genere={true}
-		    role={session.role}
+                    role={session.role}
                   />
                 </div>
               ))}
@@ -132,3 +134,4 @@ export default async function RapportsSupprimesPage() {
     </div>
   );
 }
+

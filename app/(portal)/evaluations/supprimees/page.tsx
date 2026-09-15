@@ -59,7 +59,7 @@ export default async function EvaluationsSupprimeesPage() {
                   </h3>
 
                   <p className="mt-1 text-sm text-gray-500">
-                    Utilisateur : {evaluation.user.name}
+                  utilisateur: evaluation.user?.name ?? "Utilisateur supprimé"
                   </p>
 
                   <p className="mt-1 text-sm text-gray-500">

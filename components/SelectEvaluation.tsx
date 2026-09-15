@@ -5,7 +5,7 @@ type Evaluation = {
   id: number;
   user: {
     name: string;
-  };
+  } | null;
   createdAt: Date;
 };
 
@@ -34,7 +34,8 @@ export default function SelectEvaluation({
           key={evaluation.id}
           value={evaluation.id}
         >
-          Évaluation #{evaluation.id} — {evaluation.user.name} —{" "}
+          Évaluation #{evaluation.id} —{" "}
+          {evaluation.user?.name ?? "Utilisateur supprimé"} —{" "}
           {evaluation.createdAt.toLocaleDateString("fr-FR")}
         </option>
       ))}

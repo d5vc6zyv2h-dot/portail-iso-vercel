@@ -4,13 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma skills sync || exit 0"
+    "postinstall": "prisma generate && prisma skills sync || exit 0"
   },
   "dependencies": {
-    "@prisma/adapter-mariadb": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "@tidbcloud/prisma-adapter": "^6.17.0",
     "@tidbcloud/serverless": "^0.3.0",

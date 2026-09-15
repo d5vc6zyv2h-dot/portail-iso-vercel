@@ -1,3 +1,4 @@
+
 import ExportRapportPDF from "@/components/ExportRapportPDF";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -24,17 +25,17 @@ export default async function RapportDetailPage({
 
   const evaluation = await prisma.evaluation.findFirst({
     where: {
-  id: evaluationId,
-  ...(session.role === "Administrateur" ||
-  session.role === "Responsable sécurité" ||
-  session.role === "Auditeur"
-    ? {}
-    : {
-        userId: session.userId,
-      }),
-  supprimee: false,
-  statut: "terminee",
-},
+      id: evaluationId,
+      ...(session.role === "Administrateur" ||
+      session.role === "Responsable sécurité" ||
+      session.role === "Auditeur"
+        ? {}
+        : {
+            userId: session.userId,
+          }),
+      supprimee: false,
+      statut: "terminee",
+    },
     include: {
       user: true,
       reponses: {
@@ -63,7 +64,7 @@ export default async function RapportDetailPage({
 
   const totalQuestions = evaluation.reponses.length;
 
-    const nombreOui = evaluation.reponses.filter(
+  const nombreOui = evaluation.reponses.filter(
     (reponse: { choix: string | null }) => reponse.choix === "Oui"
   ).length;
 
@@ -89,10 +90,10 @@ export default async function RapportDetailPage({
   ).length;
 
   const nombreMesures = evaluation.risques.reduce(
-  (total: number, risque: { mesures: unknown[] }) =>
-    total + risque.mesures.length,
-  0
-);
+    (total: number, risque: { mesures: unknown[] }) =>
+      total + risque.mesures.length,
+    0
+  );
 
   return (
     <div
@@ -125,7 +126,6 @@ export default async function RapportDetailPage({
       </div>
 
       <div className="mt-6 space-y-6 sm:mt-8">
-        {/* Informations générales */}
         <section className="rounded-xl border bg-white shadow-sm">
           <div className="border-b p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-800 sm:text-xl">
@@ -150,7 +150,7 @@ export default async function RapportDetailPage({
               </p>
 
               <p className="mt-1 font-semibold text-gray-800">
-                {evaluation.user.name}
+                {evaluation.user?.name ?? "Utilisateur supprimé"}
               </p>
             </div>
 
@@ -178,7 +178,6 @@ export default async function RapportDetailPage({
           </div>
         </section>
 
-        {/* Résumé */}
         <section className="rounded-xl border bg-white shadow-sm">
           <div className="border-b p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-800 sm:text-xl">
@@ -253,7 +252,6 @@ export default async function RapportDetailPage({
           </div>
         </section>
 
-        {/* Résultats du questionnaire */}
         <section className="rounded-xl border bg-white shadow-sm">
           <div className="border-b p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-800 sm:text-xl">
@@ -313,7 +311,6 @@ export default async function RapportDetailPage({
           </div>
         </section>
 
-        {/* Analyse des risques */}
         <section className="rounded-xl border bg-white shadow-sm">
           <div className="border-b p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-800 sm:text-xl">
@@ -427,7 +424,6 @@ export default async function RapportDetailPage({
           )}
         </section>
 
-        {/* Plan de traitement */}
         <section className="rounded-xl border bg-white shadow-sm">
           <div className="border-b p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-800 sm:text-xl">
@@ -535,7 +531,6 @@ export default async function RapportDetailPage({
           </div>
         </section>
 
-        {/* Conclusion */}
         <section className="rounded-xl border bg-white shadow-sm">
           <div className="border-b p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-800 sm:text-xl">
@@ -551,7 +546,6 @@ export default async function RapportDetailPage({
           </div>
         </section>
 
-        {/* Traçabilité */}
         <section className="rounded-xl border bg-white shadow-sm">
           <div className="border-b p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-800 sm:text-xl">
@@ -576,7 +570,7 @@ export default async function RapportDetailPage({
               </p>
 
               <p className="mt-1 text-sm font-medium text-gray-800">
-                {evaluation.user.name}
+                {evaluation.user?.name ?? "Utilisateur supprimé"}
               </p>
             </div>
           </div>
@@ -594,3 +588,4 @@ export default async function RapportDetailPage({
     </div>
   );
 }
+

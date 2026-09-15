@@ -19,13 +19,6 @@ export default async function RisquesPage({
     session.role === "Responsable sécurité" ||
     session.role === "Auditeur";
 
-  /*
-   * Utilisateur non concerné ici car il n'a pas
-   * la permission "risques".
-   *
-   * Pour les rôles de sécurité, on récupère toutes
-   * les évaluations non supprimées.
-   */
   const evaluations = peutVoirToutes
     ? await prisma.evaluation.findMany({
         where: {
@@ -41,12 +34,6 @@ export default async function RisquesPage({
       })
     : [];
 
-  /*
-   * Pour l'évaluation à afficher :
-   * - si une évaluation est sélectionnée dans l'URL,
-   *   on l'utilise ;
-   * - sinon on utilise la dernière évaluation disponible.
-   */
   let evaluationId = Number.isInteger(evaluationParam)
     ? evaluationParam
     : null;
@@ -156,9 +143,7 @@ export default async function RisquesPage({
   const risquesAAnalyser = evaluation.reponses
     .filter((reponse) => reponse.choix !== "Oui")
     .map((reponse) => {
-      const risque = risquesParQuestion.get(
-        reponse.questionId
-      );
+      const risque = risquesParQuestion.get(reponse.questionId);
 
       if (!risque) {
         return null;
@@ -199,7 +184,6 @@ export default async function RisquesPage({
         </Link>
       </div>
 
-      {/* Sélection de l'évaluation */}
       {peutVoirToutes && evaluations.length > 0 && (
         <div className="mt-6 rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6">
           <h3 className="text-lg font-semibold text-gray-800">
@@ -212,11 +196,11 @@ export default async function RisquesPage({
           </p>
 
           <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-         <SelectEvaluation
-  	   evaluations={evaluations}
-  	   selectedId={evaluation.id}
-	   destination="risques"
-	/>
+            <SelectEvaluation
+              evaluations={evaluations}
+              selectedId={evaluation.id}
+              destination="risques"
+            />
           </div>
         </div>
       )}
@@ -257,7 +241,7 @@ export default async function RisquesPage({
               </p>
 
               <p className="mt-1 font-semibold text-gray-800">
-                {evaluation.user.name}
+                {evaluation.user?.name ?? "Utilisateur supprimé"}
               </p>
             </div>
 
@@ -296,4 +280,3 @@ export default async function RisquesPage({
     </div>
   );
 }
-

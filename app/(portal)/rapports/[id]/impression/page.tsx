@@ -145,7 +145,9 @@ export default async function RapportImpressionPage({
 
           <div className="info-item">
             <span>Utilisateur</span>
-            <strong>{evaluation.user.name}</strong>
+            <strong>
+              {evaluation.user?.name ?? "Utilisateur supprimé"}
+            </strong>
           </div>
 
           <div className="info-item">
@@ -359,7 +361,8 @@ export default async function RapportImpressionPage({
           </span>
 
           <span>
-            Réalisée par : {evaluation.user.name}
+            Réalisée par :{" "}
+            {evaluation.user?.name ?? "Utilisateur supprimé"}
           </span>
 
           <span>

@@ -1,4 +1,4 @@
-
+ 
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import EvaluationActions from "@/components/EvaluationActions";
@@ -113,7 +113,7 @@ export default async function EvaluationsPage() {
 
                       {peutVoirToutes && (
                         <p className="mt-1 text-sm text-gray-500">
-                          Utilisateur : {evaluation.user.name}
+                        ytilisateur :evaluation.user?.name ?? "Utilisateur supprimé"
                         </p>
                       )}
 

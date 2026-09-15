@@ -128,7 +128,7 @@ export default async function RapportsPage() {
                         <p className="mt-1 text-sm text-gray-500">
                           Utilisateur :{" "}
                           <span className="font-medium text-gray-700">
-                            {evaluation.user.name}
+                            {evaluation.user?.name ?? "Utilisateur supprimé"}
                           </span>
                         </p>
                       )}
