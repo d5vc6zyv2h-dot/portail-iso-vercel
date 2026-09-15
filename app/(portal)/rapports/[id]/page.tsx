@@ -63,34 +63,36 @@ export default async function RapportDetailPage({
 
   const totalQuestions = evaluation.reponses.length;
 
-  const nombreOui = evaluation.reponses.filter(
-    (reponse) => reponse.choix === "Oui"
+    const nombreOui = evaluation.reponses.filter(
+    (reponse: { choix: string | null }) => reponse.choix === "Oui"
   ).length;
 
   const nombrePartiellement = evaluation.reponses.filter(
-    (reponse) => reponse.choix === "Partiellement"
+    (reponse: { choix: string | null }) =>
+      reponse.choix === "Partiellement"
   ).length;
 
   const nombreNon = evaluation.reponses.filter(
-    (reponse) => reponse.choix === "Non"
+    (reponse: { choix: string | null }) => reponse.choix === "Non"
   ).length;
 
   const risquesEleves = evaluation.risques.filter(
-    (risque) => risque.niveau === "Élevé"
+    (risque: { niveau: string | null }) => risque.niveau === "Élevé"
   ).length;
 
   const risquesMoyens = evaluation.risques.filter(
-    (risque) => risque.niveau === "Moyen"
+    (risque: { niveau: string | null }) => risque.niveau === "Moyen"
   ).length;
 
   const risquesFaibles = evaluation.risques.filter(
-    (risque) => risque.niveau === "Faible"
+    (risque: { niveau: string | null }) => risque.niveau === "Faible"
   ).length;
 
   const nombreMesures = evaluation.risques.reduce(
-    (total, risque) => total + risque.mesures.length,
-    0
-  );
+  (total: number, risque: { mesures: unknown[] }) =>
+    total + risque.mesures.length,
+  0
+);
 
   return (
     <div
