@@ -1,9 +1,12 @@
+
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import mysql from "mysql2/promise";
 import { verifyPassword } from "@/lib/auth";
 import { createSession } from "@/lib/session";
 
 export async function POST(request: Request) {
+  let connection;
+
   try {
     const { email, password } = await request.json();
 
@@ -14,9 +17,39 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email },
+    const databaseUrl = process.env.DATABASE_URL;
+
+    if (!databaseUrl) {
+      throw new Error("DATABASE_URL n'est pas définie.");
+    }
+
+    const url = new URL(databaseUrl);
+
+    connection = await mysql.createConnection({
+      host: url.hostname,
+      port: Number(url.port) || 4000,
+      user: decodeURIComponent(url.username),
+      password: decodeURIComponent(url.password),
+      database: url.pathname.replace(/^\//, ""),
+      ssl: {
+        rejectUnauthorized: true,
+      },
     });
+
+    const [rows] = await connection.execute(
+      "SELECT id, name, email, password, role FROM User WHERE email = ? LIMIT 1",
+      [email]
+    );
+
+    const users = rows as Array<{
+      id: number;
+      name: string;
+      email: string;
+      password: string;
+      role: string;
+    }>;
+
+    const user = users[0];
 
     if (!user) {
       return NextResponse.json(
@@ -47,5 +80,10 @@ export async function POST(request: Request) {
       { error: "Une erreur est survenue lors de la connexion." },
       { status: 500 }
     );
+  } finally {
+    if (connection) {
+      await connection.end();
+    }
   }
 }
+
