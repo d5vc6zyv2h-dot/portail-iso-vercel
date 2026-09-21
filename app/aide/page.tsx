@@ -94,22 +94,24 @@ export default function AidePage() {
 
         </div>
 
-        <div className="mt-10 bg-slate-900 text-white rounded-xl p-6 text-center">
-          <h2 className="text-xl font-semibold mb-2">
-            Besoin d'informations supplémentaires ?
-          </h2>
+        <div className="mt-8 rounded-xl border bg-white p-6 shadow-sm">
+  <h3 className="text-lg font-semibold text-gray-800">
+    Besoin d'informations supplémentaires ?
+  </h3>
 
-          <p className="text-slate-300 mb-5">
-            Notre équipe est disponible pour répondre à vos questions.
-          </p>
+  <p className="mt-2 text-sm leading-6 text-gray-600">
+    Pour toute question concernant le portail, son utilisation ou
+    une demande de démonstration, vous pouvez nous contacter à
+    l'adresse suivante :
+  </p>
 
-          <Link
-            href="/contact"
-            className="inline-block bg-white text-slate-900 px-5 py-2.5 rounded-lg font-medium hover:bg-gray-200"
-          >
-            Nous contacter
-          </Link>
-        </div>
+  <a
+    href="mailto:jordantshitshi@icloud.com"
+    className="mt-4 inline-block font-semibold text-blue-600 hover:underline"
+  >
+    jordantshitshi@icloud.com
+  </a>
+</div>
 
       </main>
 
