@@ -74,7 +74,7 @@ export default function ContactPage() {
                     E-mail
                   </p>
                   <p className="text-gray-500">
-                    contact@portail-iso27001.com
+                    txitxione@gmail.com
                   </p>
                 </div>
               </div>
@@ -86,7 +86,7 @@ export default function ContactPage() {
                     Téléphone
                   </p>
                   <p className="text-gray-500">
-                    +243 XX XXX XX XX
+                    +243 898547401
                   </p>
                 </div>
               </div>
