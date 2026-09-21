@@ -250,8 +250,11 @@ export default async function RisquesPage({
                 Date
               </p>
 
-              <p className="mt-1 font-semibold text-gray-800">
-                {evaluation.createdAt.toLocaleDateString("fr-FR")}
+              <p className="mt-1 font-semibold text-gray-800">                  	 {evaluation.createdAt.toLocaleDateString("fr-FR")} à{" "}
+               {evaluation.createdAt.toLocaleTimeString("fr-FR", {
+ 		 hour: "2-digit",
+  		 minute: "2-digit",
+		})}
               </p>
             </div>
           </div>
